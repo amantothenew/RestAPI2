@@ -26,7 +26,7 @@ public class UserController {
 
 
     @GetMapping(value = "/users",
-            consumes = { "application/json", "application/xml" })
+            produces = { "application/json", "application/xml" })
     public List<User> getAllUsers() {
         return service.getAllUser();
     }
@@ -41,5 +41,10 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/users/{id}")
+    public User deleteById(@PathVariable int id) {
+        return service.deleteById(id);
     }
 }
