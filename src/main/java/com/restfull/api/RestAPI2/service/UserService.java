@@ -13,9 +13,9 @@ public class UserService {
     private static Integer userCounter = 0;
 
     static {
-        users.add(new User(++userCounter, "Aman Pal", 22));
-        users.add(new User(++userCounter, "Ravi Gupta", 21));
-        users.add(new User(++userCounter, "Utkarsh Pal", 22));
+        users.add(new User(++userCounter, "Aman Pal", 22, "Aman22"));
+        users.add(new User(++userCounter, "Ravi Gupta", 21, "Aman22"));
+        users.add(new User(++userCounter, "Utkarsh Pal", 22, "Aman22"));
     }
 
     public List<User> getAllUser() {
