@@ -28,6 +28,10 @@ public class UserService {
         return user;
     }
 
+    public User findOne(int id) {
+        return users.stream().filter(user->user.getId()==id).findFirst().get();
+    }
+
     public User deleteById(int id) {
         User employee = users.stream()
                 .filter(user -> user.getId() == id)

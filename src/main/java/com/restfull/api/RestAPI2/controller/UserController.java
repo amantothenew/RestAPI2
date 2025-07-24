@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Locale;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 
 //@Hidden
 @RestController
@@ -106,5 +112,16 @@ public class UserController {
     public List<User> getUsersMediaVersioning() {
         return service.getAllUser();
     }
+
+    @GetMapping("/hateoas/users/{id}")
+    public EntityModel<User> getUsersMediaVersioning(@PathVariable int id) {
+        User user = service.findOne(id);
+        EntityModel<User> entityModel = EntityModel.of(user);
+        WebMvcLinkBuilder webMvcLinkBuilder = linkTo(methodOn(this.getClass()).getAllUsers());
+        entityModel.add(webMvcLinkBuilder.withRel("all-users"));
+        return entityModel;
+    }
+
+
 
 }
